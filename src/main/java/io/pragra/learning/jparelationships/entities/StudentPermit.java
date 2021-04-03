@@ -2,6 +2,7 @@ package io.pragra.learning.jparelationships.entities;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ public class StudentPermit {
     @GeneratedValue
     private Integer id;
 
+    @Column(length = 50)
     private String permitName;
 
 }

@@ -6,16 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@XmlRootElement
 public class Review {
-    @Id
-    @GeneratedValue
-    private Integer id;
+
+    @EmbeddedId
+    private ReviewPK reviewPK;
+
 
     private String programName;
 

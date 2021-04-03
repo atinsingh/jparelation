@@ -11,3 +11,4 @@ spring:
     console:
       path: /h2
       enabled: true
+

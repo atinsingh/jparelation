@@ -1,5 +1,7 @@
 package io.pragra.learning.jparelationships.service;
 
+import io.pragra.learning.jparelationships.entities.Review;
+import io.pragra.learning.jparelationships.entities.ReviewPK;
 import io.pragra.learning.jparelationships.entities.Student;
 import io.pragra.learning.jparelationships.entities.StudentPermit;
 import io.pragra.learning.jparelationships.repo.ReviewRepo;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,13 +27,25 @@ public class StudentService {
 
 
 
+    @Transactional
     public Student createStudent(Student student) {
         student.getReviews().stream().forEach(reviewRepo::save);
         return this.repo.save(student);
     }
 
+
+
+    @Transactional
     public Student update(Student student) {
-        return createStudent(student);
+        Optional<Review> byId = reviewRepo.findById(new ReviewPK(1, 2));
+        byId.get().setProgramName("ABC LEARNING");
+        reviewRepo.save(byId.get());
+        return repo.save(student);
+    }
+
+
+    public Student findById(Integer id) {
+        return repo.findById(id).get();
     }
     public boolean deleteStudentById(Integer id) {
         Optional<Student> studentOptional = repo.findById(id);
@@ -39,6 +54,10 @@ public class StudentService {
             return true;
         }
         return false;
+    }
+
+    public List<Student> findAll() {
+        return repo.findAll();
     }
 
 

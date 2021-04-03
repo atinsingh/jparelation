@@ -1,6 +1,7 @@
 package io.pragra.learning.jparelationships;
 
 import io.pragra.learning.jparelationships.entities.Review;
+import io.pragra.learning.jparelationships.entities.ReviewPK;
 import io.pragra.learning.jparelationships.entities.Student;
 import io.pragra.learning.jparelationships.entities.StudentPermit;
 import io.pragra.learning.jparelationships.service.StudentService;
@@ -27,16 +28,16 @@ public class JpaRelationshipsApplication {
         return args -> {
             StudentPermit permit=
                         StudentPermit.builder()
-                        .permitName("Learning from Prgra")
+                        .permitName("Prakash")
                         .build();
             Student student =
                     Student.builder()
                     .permit(permit)
                      .reviews(
                                 Arrays.asList(
-                                        Review.builder().programName("Java").reviewText("Very Happy").build(),
-                                        Review.builder().programName("DevOps").reviewText("Very Happy").build(),
-                                        Review.builder().programName("Automation").reviewText("Not Happy").build()
+                                        Review.builder().reviewPK(new ReviewPK(1,2)).programName("Java").reviewText("Very Happy").build(),
+                                        Review.builder().reviewPK(new ReviewPK(1,3)).programName("DevOps").reviewText("Very Happy").build(),
+                                        Review.builder().reviewPK(new ReviewPK(1,4)).programName("Automation").reviewText("Not Happy").build()
                                 )
                      )
                     .name("Prakash")
@@ -50,9 +51,9 @@ public class JpaRelationshipsApplication {
                     .name("JOL")
                     .reviews(
                             Arrays.asList(
-                                    Review.builder().programName("Java").reviewText("HAPPY").build(),
-                                    Review.builder().programName("DevOps").reviewText("HAPPY").build(),
-                                    Review.builder().programName("Automation").reviewText("HAPPY").build()
+                                    Review.builder().reviewPK(new ReviewPK(2,1)).programName("Java").reviewText("HAPPY").build(),
+                                    Review.builder().reviewPK(new ReviewPK(2,2)).programName("DevOps").reviewText("HAPPY").build(),
+                                    Review.builder().reviewPK(new ReviewPK(2,3)).programName("Automation").reviewText("HAPPY").build()
                             )
                     )
                     .build()
@@ -65,6 +66,17 @@ public class JpaRelationshipsApplication {
                     .name("LOVEPREET")
                     .build()
             );
+
+
+            Student st = service.findById(1);
+            try {
+                st.getPermit().setPermitName("Learning java 22721e7281e782e16jhdjhscgsgdsgfjhsfdgh fromd,mnmnfnkmdfnmenbefbnmenmbfbnm");
+                st.setName("ALHAMZA");
+                service.update(st);
+            }catch (Exception ex) {
+
+            }
+
 
 
         };
